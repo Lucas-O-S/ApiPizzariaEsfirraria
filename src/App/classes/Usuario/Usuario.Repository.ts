@@ -11,7 +11,9 @@ export class UsuarioRepository {
     constructor( @InjectModel(UsuarioModel) private readonly model  : typeof UsuarioModel ){}
 
     async create(dto : UsuarioDto) : Promise<UsuarioModel>{
-        return this.model.create(dto);
+        const user = await this.model.create(dto);
+        user.setDataValue("password", undefined);
+        return user;
     }
 
     async update(dto : UsuarioDto, id : number) : Promise<boolean>{
@@ -21,7 +23,7 @@ export class UsuarioRepository {
     }
     
     async get(id : number) : Promise<UsuarioModel>{
-        return this.model.findByPk(id);
+        return this.model.findByPk(id, {attributes : {exclude: ['password']}});
     }
 
     async getAll() : Promise<UsuarioModel[]>{

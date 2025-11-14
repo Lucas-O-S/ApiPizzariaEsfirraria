@@ -18,8 +18,12 @@ export class UsuarioDto {
     @IsNotEmpty({message: "Senha não pode ser vazio"})
     @IsString({message: "Deve a senha ser uma string"})
     @IsStrongPassword({
-        minLength : 2
-    })
+        minLength: 2,
+        minUppercase: 0,
+        minLowercase: 0,
+        minNumbers: 0,
+        minSymbols: 0,    
+    }, {message : "deve ter no minimo 2 caracteres a senha"})
     password: string;
 
 }

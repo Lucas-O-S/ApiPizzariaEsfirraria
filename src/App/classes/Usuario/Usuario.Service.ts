@@ -27,8 +27,12 @@ export class UsuarioService {
     async get(id : number) : Promise<UsuarioModel>{
         
         
-        return await this.repository.get(id);
-        
+        const user = await this.repository.get(id);
+
+        if (!user) throw new Error("Usuario não encontrado");
+
+        return user
+
     }
     async getAll() : Promise<UsuarioModel[]>{
         

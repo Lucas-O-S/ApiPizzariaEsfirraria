@@ -1,5 +1,5 @@
 import { AllowNull, Column, DataType, Model, Table } from "sequelize-typescript";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 
 @Table({
     tableName: "tb_Usuario",
@@ -28,7 +28,7 @@ export class UsuarioModel extends Model<UsuarioModel>{
         allowNull: false,
         validate : {
             notEmpty : true,
-            len : [0,5]
+            len : [0,255]
         },
         set (value : string) {
             const hashed = bcrypt.hashSync(value, 10);
