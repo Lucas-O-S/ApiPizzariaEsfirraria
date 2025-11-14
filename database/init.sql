@@ -1,9 +1,9 @@
-IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'SistemasLanches')
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'SistemasEsfirrariaPizzaria')
 BEGIN
-    CREATE DATABASE SistemasLanches;
+    CREATE DATABASE SistemasEsfirrariaPizzaria;
 END
 
 go
 
-USE SistemasLanches;
+USE SistemasEsfirrariaPizzaria;
 
