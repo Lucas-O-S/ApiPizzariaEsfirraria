@@ -10,7 +10,8 @@ async function bootstrap() {
     .setTitle('Minha API de Pizzaria Esfirraria')   // título da documentação
     .setDescription('Documentação da API com NestJS e Swagger')
     .setVersion('1.0')
-    .addTag('Pizzaria Esfirraria') // opcional: agrupa endpoints
+    .addBearerAuth()
+    .addTag('Pizzaria Esfirraria') 
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

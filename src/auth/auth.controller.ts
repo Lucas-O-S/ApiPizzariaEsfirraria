@@ -18,7 +18,6 @@ export class AuthController{
     async login(@Body() dto : LoginDto) : Promise<ApiResponseInterface>{
         try{
             const token = await this.service.login(dto);
-        
             return {
                 status: 200,
                 message: 'login feito com sucesso.',

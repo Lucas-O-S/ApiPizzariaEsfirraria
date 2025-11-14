@@ -1,10 +1,11 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseBoolPipe, ParseIntPipe, Post, Put, Query, UploadedFile, UseInterceptors } from "@nestjs/common";
-import { ApiBody, ApiConsumes, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseBoolPipe, ParseIntPipe, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UsuarioService } from "./Usuario.Service";
 import { UsuarioDto } from "./dto/Usuario.dto";
 import { ApiResponseInterface } from "../../Interface/ApiResponseInterface";
 import { FileInterceptor} from "@nestjs/platform-express";
 import { UsuarioSchema } from "./Schemas/UsuarioSchema";
+import { JwtAuthGuard } from "src/App/guards/jwtAuthGuard";
 
 @Controller("usuario")
 @ApiTags("usuario")
@@ -95,6 +96,8 @@ export class UsuarioController {
     }
 
     @Get()
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @ApiResponse({status: 200, description: "Busca Concluida."})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     async getAll() : Promise<ApiResponseInterface> {
