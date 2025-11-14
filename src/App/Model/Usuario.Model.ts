@@ -1,4 +1,5 @@
 import { AllowNull, Column, DataType, Model, Table } from "sequelize-typescript";
+import bcrypt from "bcrypt";
 
 @Table({
     tableName: "tb_Usuario",
@@ -16,26 +17,26 @@ export class UsuarioModel extends Model<UsuarioModel>{
     id:number;
 
 
-    
+    @Column({
+        type: DataType.STRING(255),
+        allowNull: false
+    })
+    name : string;
+
     @Column({
         type: DataType.STRING(255),
         allowNull: false,
-        unique: true,
+        validate : {
+            notEmpty : true,
+            len : [0,5]
+        },
+        set (value : string) {
+            const hashed = bcrypt.hashSync(value, 10);
+            this.setDataValue("password", hashed);
+        }
+
     })
-    ra : string;
+    password : string;
 
-
-    @Column({
-        type: DataType.STRING(255),
-        allowNull: false
-    })
-    nome : string;
-
-    @Column({
-        type: DataType.BLOB, 
-        allowNull: false
-
-     })
-    imagem: Buffer;
 
 }

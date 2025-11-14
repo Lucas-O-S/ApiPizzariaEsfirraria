@@ -24,16 +24,16 @@ export class UsuarioService {
         
     }
 
-    async get(id : number, getImage: boolean = true) : Promise<UsuarioModel>{
+    async get(id : number) : Promise<UsuarioModel>{
         
         
-        return (getImage) ? await this.repository.get(id) : await this.repository.getNoImage(id);
+        return await this.repository.get(id);
         
     }
-    async getAll( getImage: boolean = false) : Promise<UsuarioModel[]>{
+    async getAll() : Promise<UsuarioModel[]>{
         
 
-        return (getImage) ? await this.repository.getAll() : await this.repository.getAllNoImage();
+        return await this.repository.getAll();
         
     }
 

@@ -8,40 +8,34 @@ import { UsuarioSchema } from "./Schemas/UsuarioSchema";
 import { ImageInterceptorRules } from "src/App/Utils/ImagemFiltters";
 
 
-@Controller("aluno")
-@ApiTags("Aluno")
+@Controller("usuario")
+@ApiTags("usuario")
 export class UsuarioController {
 
     constructor(private readonly service: UsuarioService) {}
 
     @Post()
-    @ApiConsumes('multipart/form-data')
     @ApiBody(UsuarioSchema)
-    @ApiResponse({status: 201, description: "Aluno criado com sucesso"})
+    @ApiResponse({status: 201, description: "usuario criado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     @UseInterceptors(ImageInterceptorRules)
     async create(
         @Body() dto: UsuarioDto,
-        @UploadedFile() file: Express.Multer.File
     ) : Promise<ApiResponseInterface> {
         try{
-
-            if (file) dto.imagem = file.buffer;
-            
-            else throw new Error("Imagem é obrigatória");
 
             const result = await this.service.create(dto);
 
             return {
                 status: 201,
-                message: 'Aluno criado com sucesso',
+                message: 'usuario criado com sucesso',
                 dataUnit: result,
             } ;
         }
         catch(error){
             return{
                 status: 500,
-                message: 'Erro ao registrar aluno.',
+                message: 'Erro ao registrar usuario.',
                 error: error.message || error,
             }
 
@@ -49,33 +43,29 @@ export class UsuarioController {
     }
 
     @Put(":Id")
-    @ApiConsumes('multipart/form-data')
     @ApiBody(UsuarioSchema)
-    @ApiResponse({status: 200, description: "Aluno atualizado com sucesso"})
+    @ApiResponse({status: 200, description: "usuario atualizado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     @UseInterceptors(ImageInterceptorRules)
     async update(
         @Param("Id", ParseIntPipe) id : number,
          @Body() dto: UsuarioDto,
-        @UploadedFile() file: Express.Multer.File
     ) : Promise<ApiResponseInterface> {
         try{
             console.log(dto);
-            if (file) dto.imagem = file.buffer;
-            else throw new Error("Imagem é obrigatória");
 
             const result = await this.service.update(dto, id);
 
             return {
                 status: 200,
-                message: 'Aluno atualizado com sucesso.',
+                message: 'usuario atualizado com sucesso.',
                 dataUnit: result,
             } ;
         }
         catch(error){
             return{
                 status: 500,
-                message: 'Erro ao registrar aluno.',
+                message: 'Erro ao registrar usuario.',
                 error: error.message || error,
             }
 
@@ -83,16 +73,14 @@ export class UsuarioController {
     }
 
     @Get(":Id/")
-    @ApiQuery({ name: 'BuscaImagem', required: false, type: Boolean, description: 'Se falso, não retorna a imagem, padrão é verdadeiro' })
-    @ApiResponse({status: 200, description: "Aluno criado com sucesso"})
+    @ApiResponse({status: 200, description: "usuario criado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     async get(
         @Param("Id", ParseIntPipe) id : number,
-        @Query("BuscaImagem", new DefaultValuePipe(true), ParseBoolPipe) getImage : boolean
     ) : Promise<ApiResponseInterface>{
         try{
 
-            const result = await this.service.get(id, getImage);
+            const result = await this.service.get(id);
 
             return {
                 status: 200,
@@ -103,7 +91,7 @@ export class UsuarioController {
         catch(error){
             return{
                 status: 500,
-                message: 'Erro ao buscar aluno.',
+                message: 'Erro ao buscar usuario.',
                 error: error.message || error,
             }
 
@@ -111,15 +99,12 @@ export class UsuarioController {
     }
 
     @Get()
-    @ApiQuery({ name: 'BuscaImagem', required: false, type: Boolean, description: 'Se falso, não retorna a imagem, padrão é falso' })
     @ApiResponse({status: 200, description: "Busca Concluida."})
     @ApiResponse({status: 500, description: "Erro na requisição"})
-    async getAll(
-        @Query("BuscaImagem", new DefaultValuePipe(false), ParseBoolPipe) getImage : boolean
-    ) : Promise<ApiResponseInterface> {
+    async getAll() : Promise<ApiResponseInterface> {
         try{
 
-            const result = await this.service.getAll(getImage);
+            const result = await this.service.getAll();
 
             return {
                 status: 200,
@@ -130,7 +115,7 @@ export class UsuarioController {
         catch(error){
             return{
                 status: 500,
-                message: 'Erro ao buscar aluno.',
+                message: 'Erro ao buscar usuario.',
                 error: error.message || error,
             }
 
@@ -150,7 +135,7 @@ export class UsuarioController {
 
             return {
                 status: 200,
-                message: 'Aluno deletado com sucesso',
+                message: 'usuario deletado com sucesso',
                 dataUnit: result
             }
 
@@ -158,7 +143,7 @@ export class UsuarioController {
         catch(error){
             return{
                 status: 500,
-                message: 'Erro ao deletar aluno.',
+                message: 'Erro ao deletar usuario.',
                 error: error.message || error,
             }
 

@@ -23,17 +23,9 @@ export class UsuarioRepository {
     async get(id : number) : Promise<UsuarioModel>{
         return this.model.findByPk(id);
     }
-    
-    async getAllNoImage() : Promise<UsuarioModel[]>{
-        return this.model.findAll({attributes : {exclude: ['imagem']}} );
-    }
 
     async getAll() : Promise<UsuarioModel[]>{
-        return this.model.findAll();
-    }
-
-    async getNoImage(id : number) {
-        return this.model.findByPk(id, { attributes: { exclude: ['imagem'] } });
+        return this.model.findAll({attributes : {exclude: ['password']}} );
     }
 
     
