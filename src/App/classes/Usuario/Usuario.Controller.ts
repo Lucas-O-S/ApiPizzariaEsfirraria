@@ -5,8 +5,6 @@ import { UsuarioDto } from "./dto/Usuario.dto";
 import { ApiResponseInterface } from "../../Interface/ApiResponseInterface";
 import { FileInterceptor} from "@nestjs/platform-express";
 import { UsuarioSchema } from "./Schemas/UsuarioSchema";
-import { ImageInterceptorRules } from "src/App/Utils/ImagemFiltters";
-
 
 @Controller("usuario")
 @ApiTags("usuario")
@@ -18,7 +16,6 @@ export class UsuarioController {
     @ApiBody(UsuarioSchema)
     @ApiResponse({status: 201, description: "usuario criado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
-    @UseInterceptors(ImageInterceptorRules)
     async create(
         @Body() dto: UsuarioDto,
     ) : Promise<ApiResponseInterface> {
@@ -46,7 +43,6 @@ export class UsuarioController {
     @ApiBody(UsuarioSchema)
     @ApiResponse({status: 200, description: "usuario atualizado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
-    @UseInterceptors(ImageInterceptorRules)
     async update(
         @Param("Id", ParseIntPipe) id : number,
          @Body() dto: UsuarioDto,

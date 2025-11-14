@@ -3,6 +3,7 @@ import { UsuarioModel } from "../../Model/Usuario.Model";
 import { InjectModel } from "@nestjs/sequelize";
 import { UsuarioDto } from "./dto/Usuario.dto";
 import { where } from "sequelize";
+import { LoginDto } from "src/auth/dto/login.dto";
 
 
 @Injectable()
@@ -35,6 +36,14 @@ export class UsuarioRepository {
             
         return (await this.model.destroy({where: {id : id}})) > 0;
     
+    }
+
+    async verifyLogin(dto : LoginDto) : Promise<UsuarioModel>{
+        return await this.model.findOne({
+            where : {
+                name : dto.name,
+            }
+        })
     }
 
 }

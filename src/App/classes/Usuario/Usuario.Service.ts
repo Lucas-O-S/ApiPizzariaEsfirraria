@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { UsuarioDto } from "./dto/Usuario.dto";
-import { ApiResponseInterface } from "../../Interface/ApiResponseInterface";
 import { UsuarioRepository } from "./Usuario.Repository";
 import { UsuarioModel } from "src/App/Model/Usuario.Model";
+import { LoginDto } from "src/auth/dto/login.dto";
 
 
 @Injectable()
@@ -46,6 +46,15 @@ export class UsuarioService {
         if (!(await this.repository.get(id))) throw new Error("Não existe este registro no banco");
         
         return await this.repository.delete(id);
+    }
+
+    public async verifyLogin(dto : LoginDto) : Promise<UsuarioModel>{
+        
+        const user = await this.repository.verifyLogin(dto);
+        
+        if (!user) throw new Error("Erro, usuario não encontrado");
+        
+        return user;
     }
 
 }
