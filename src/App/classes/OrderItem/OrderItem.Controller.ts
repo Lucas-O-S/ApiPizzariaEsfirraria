@@ -8,7 +8,7 @@ import { OrderItemSchema } from "./Schemas/OrderItemSchema";
 
 @Controller("order-item")
 @ApiTags("OrderItem")
-//@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class OrderItemController {
 
