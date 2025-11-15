@@ -8,7 +8,7 @@ import { AuthController } from './auth.controller';
 import { JwtAuthGuard } from 'src/App/guards/JwtAuth.Guard';
 import { AllGuards as AllAuthGuards } from 'src/App/index/indexAuthGuards';
 import * as dotenv from 'dotenv';
-import { admPermissionguard } from 'src/App/guards/admPermission.Guard';
+import { AdmPermissionGuard } from 'src/App/guards/AdmPermission.Guard';
 import { UserIdguard } from 'src/App/guards/UserId.Guard';
 
 dotenv.config();
@@ -25,7 +25,7 @@ dotenv.config();
   providers: 
   [AuthService,
     JwtStrategy,
-    admPermissionguard,
+    AdmPermissionGuard,
     JwtAuthGuard,
     ...AllAuthGuards
   ],

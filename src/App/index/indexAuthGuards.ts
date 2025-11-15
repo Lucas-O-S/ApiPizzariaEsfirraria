@@ -1,9 +1,9 @@
-import { admPermissionguard } from "../guards/admPermission.Guard";
+import { AdmPermissionGuard } from "../guards/AdmPermission.Guard";
 import { JwtAuthGuard } from "../guards/JwtAuth.Guard";
 import { UserIdguard } from "../guards/UserId.Guard";
 
 export const AllGuards = [
-    admPermissionguard,
+    AdmPermissionGuard,
     JwtAuthGuard,
     UserIdguard
 ]

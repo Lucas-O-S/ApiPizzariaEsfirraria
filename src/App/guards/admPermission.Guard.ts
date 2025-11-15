@@ -5,7 +5,7 @@ import { UsuarioService } from "../classes/Usuario/Usuario.Service";
 
 
 @Injectable()
-export class admPermissionguard implements CanActivate{
+export class AdmPermissionGuard implements CanActivate{
 
     constructor (
         private readonly jwtService : JwtService,

@@ -17,20 +17,25 @@ export class ProductModel extends Model<ProductModel> {
 
     @Column({
         type: DataType.STRING(255),
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-            len: [1, 255]
-        }
+        allowNull: false
     })
     name: string;
 
     @Column({
-        type: DataType.DECIMAL(10, 2),
-        allowNull: false,
-        validate: {
-            min: 0
-        }
+        type: DataType.STRING(500),
+        allowNull: false
+    })
+    description: string; // <-- adicionado
+
+    @Column({
+        type: DataType.DECIMAL(10,2),
+        allowNull: false
     })
     price: number;
+
+    @Column({
+        type: DataType.BLOB("long"),
+        allowNull: true
+    })
+    productImage?: Buffer;
 }

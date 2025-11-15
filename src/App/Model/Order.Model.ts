@@ -29,7 +29,7 @@ export class OrderModel extends Model<OrderModel> {
             min: 0
         }
     })
-    total: number;
+    priceTotal: number;
 
     
     @HasMany(() => OrderItemModel)

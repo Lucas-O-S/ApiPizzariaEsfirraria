@@ -47,8 +47,9 @@ BEGIN
     CREATE TABLE tb_Product (
         id INT IDENTITY(1,1) PRIMARY KEY,
         name VARCHAR(255)  NOT NULL,
-        productImage VARBINARY(MAX),
-        preco DECIMAL(10,2) default 0
+        description VARCHAR(255) NULL,
+        productImage VARBINARY(MAX) NULL,
+        price DECIMAL(10,2) default 0
     )
 END
 
@@ -61,7 +62,7 @@ BEGIN
     CREATE TABLE tb_Order (
         id INT IDENTITY(1,1) PRIMARY KEY,
         userId INT not null,
-        precoTotal DECIMAL(10,2) DEFAULT 0,
+        priceTotal DECIMAL(10,2) DEFAULT 0,
         FOREIGN key(userId) REFERENCES tb_Usuario(id)
 
     
@@ -77,8 +78,8 @@ BEGIN
     CREATE TABLE tb_OrderItem (
         id INT IDENTITY(1,1) PRIMARY KEY,
         orderId INT not null,
-        quantidade INT not null DEFAULT 1,
-        precoTotal DECIMAL(10,2) DEFAULT 0,
+        quantity INT not null DEFAULT 1,
+        priceTotal DECIMAL(10,2) DEFAULT 0,
         productId INT NOT NULL,
         FOREIGN key(orderId) REFERENCES tb_Order(id),
         FOREIGN key(productId) REFERENCES tb_Product(id)
