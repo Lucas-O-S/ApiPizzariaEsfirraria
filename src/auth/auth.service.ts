@@ -21,7 +21,6 @@ export class AuthService {
             throw new Error("Senha Incorreta!")
 
         const payload = { username: user.name, sub: user.id };
-        
         return {
             access_token: this.jwtService.sign(payload),
         };

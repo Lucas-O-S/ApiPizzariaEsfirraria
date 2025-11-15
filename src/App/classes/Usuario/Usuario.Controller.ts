@@ -42,6 +42,8 @@ export class UsuarioController {
 
     @Put(":Id")
     @ApiBody(UsuarioSchema)
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @ApiResponse({status: 200, description: "usuario atualizado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     async update(
@@ -70,6 +72,8 @@ export class UsuarioController {
     }
 
     @Get(":Id/")
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @ApiResponse({status: 200, description: "usuario criado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     async get(
@@ -122,6 +126,8 @@ export class UsuarioController {
     }
 
     @Delete(":id")
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @ApiResponse({status: 200, description: "Deleção Concluida"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     async delete(

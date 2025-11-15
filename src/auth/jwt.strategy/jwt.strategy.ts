@@ -6,10 +6,16 @@ import { Strategy, ExtractJwt } from "passport-jwt";
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
+    const secret = process.env.secret || 'default-secret-key';
+    
+    if (!secret || secret === 'default-secret-key') {
+      console.warn('AVISO: JWT_SECRET não configurado');
+    }
+
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.secret,
+      secretOrKey: secret,
     });
   }
 

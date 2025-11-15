@@ -27,7 +27,7 @@ export class AuthController{
         catch(error){
             return{
                 status: 500,
-                message: 'Erro ao registrar usuario.',
+                message: 'Erro ao fazer login de usuario.',
                 error: error.message || error,
             }
         }

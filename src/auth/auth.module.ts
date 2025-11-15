@@ -11,7 +11,7 @@ import { JwtAuthGuard } from 'src/App/guards/jwtAuthGuard';
   imports: [
     PassportModule.register({defaultStrategy: "jwt"}),
     JwtModule.register({
-      secret: process.env.secret,
+      secret: process.env.secret || 'default-secret-key',
       signOptions: { expiresIn: '1d' },
     }),
     forwardRef(()=> UsuarioModule)

@@ -38,5 +38,11 @@ export class UsuarioModel extends Model<UsuarioModel>{
     })
     password : string;
 
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false,
+        defaultValue: 2
+    })
+    roleId: number;
 
 }
