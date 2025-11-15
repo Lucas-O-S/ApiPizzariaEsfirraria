@@ -19,7 +19,7 @@ export class UsuarioModel extends Model<UsuarioModel>{
 
     @Column({
         type: DataType.STRING(255),
-        allowNull: false
+        allowNull: false,
     })
     name : string;
 

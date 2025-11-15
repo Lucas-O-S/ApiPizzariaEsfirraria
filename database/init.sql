@@ -31,8 +31,8 @@ IF NOT EXISTS (
 BEGIN
     CREATE TABLE tb_Usuario (
         id INT IDENTITY(1,1) PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        password VARCHAR(255) NOT NULL,
+        name VARCHAR(255) COLLATE Latin1_General_CS_AS NOT NULL,
+        password VARCHAR(255)  COLLATE Latin1_General_CS_AS NOT NULL,
         roleId INT NOT NULL DEFAULT 2,
         CONSTRAINT FK_User_Role FOREIGN KEY (roleId) REFERENCES tb_Role(id)
     )
