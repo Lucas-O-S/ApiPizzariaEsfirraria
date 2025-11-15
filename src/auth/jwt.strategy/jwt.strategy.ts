@@ -1,14 +1,16 @@
 import { Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
-    const secret = process.env.secret || 'default-secret-key';
+    const secret = process.env.secret;
     
-    if (!secret || secret === 'default-secret-key') {
+    if (!secret) {
       console.warn('AVISO: JWT_SECRET não configurado');
     }
 

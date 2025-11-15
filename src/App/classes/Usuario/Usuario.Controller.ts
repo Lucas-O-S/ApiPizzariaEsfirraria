@@ -5,7 +5,8 @@ import { UsuarioDto } from "./dto/Usuario.dto";
 import { ApiResponseInterface } from "../../Interface/ApiResponseInterface";
 import { FileInterceptor} from "@nestjs/platform-express";
 import { UsuarioSchema } from "./Schemas/UsuarioSchema";
-import { JwtAuthGuard } from "src/App/guards/jwtAuthGuard";
+import { JwtAuthGuard } from "src/App/guards/JwtAuth.Guard";
+import { UserIdguard } from "src/App/guards/UserId.Guard";
 
 @Controller("usuario")
 @ApiTags("usuario")
@@ -40,14 +41,14 @@ export class UsuarioController {
         }
     }
 
-    @Put(":Id")
+    @Put(":id")
     @ApiBody(UsuarioSchema)
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, UserIdguard)
     @ApiBearerAuth()
     @ApiResponse({status: 200, description: "usuario atualizado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     async update(
-        @Param("Id", ParseIntPipe) id : number,
+        @Param("id", ParseIntPipe) id : number,
          @Body() dto: UsuarioDto,
     ) : Promise<ApiResponseInterface> {
         try{
@@ -71,13 +72,13 @@ export class UsuarioController {
         }
     }
 
-    @Get(":Id/")
+    @Get(":id/")
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
     @ApiResponse({status: 200, description: "usuario criado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     async get(
-        @Param("Id", ParseIntPipe) id : number,
+        @Param("id", ParseIntPipe) id : number,
     ) : Promise<ApiResponseInterface>{
         try{
 
@@ -126,7 +127,7 @@ export class UsuarioController {
     }
 
     @Delete(":id")
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard,UserIdguard)
     @ApiBearerAuth()
     @ApiResponse({status: 200, description: "Deleção Concluida"})
     @ApiResponse({status: 500, description: "Erro na requisição"})

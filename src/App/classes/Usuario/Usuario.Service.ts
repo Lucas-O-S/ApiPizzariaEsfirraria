@@ -41,14 +41,14 @@ export class UsuarioService {
         
     }
 
-    public async delete(id : number) : Promise<Boolean>{
+    async delete(id : number) : Promise<Boolean>{
         
         if (!(await this.repository.get(id))) throw new Error("Não existe este registro no banco");
         
         return await this.repository.delete(id);
     }
 
-    public async verifyLogin(dto : LoginDto) : Promise<UsuarioModel>{
+    async verifyLogin(dto : LoginDto) : Promise<UsuarioModel>{
         
         const user = await this.repository.verifyLogin(dto);
         
@@ -56,5 +56,15 @@ export class UsuarioService {
         
         return user;
     }
+
+    async verifyAdm (id : number) : Promise<boolean>{
+        return await this.repository.verifyAdm(id)
+    }
+
+    async verifyFirstAdmExistence () {
+        await this.repository.verifyFirstAdmExistence();
+    }
+
+
 
 }

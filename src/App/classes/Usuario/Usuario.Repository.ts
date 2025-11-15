@@ -46,4 +46,23 @@ export class UsuarioRepository {
         })
     }
 
+    async verifyAdm (id : number) : Promise<boolean>{
+        return ((await this.model.findByPk(id)).roleId) == 1 
+    }
+
+    async verifyFirstAdmExistence () {
+        
+        const admin = await this.model.findOne({ where: { name: 'ADM', id : 1 }});
+
+        if (!admin) {
+           
+            await this.model.create({
+                name: "ADM",
+                password: "123456",
+                roleId: 1,
+            });
+        
+        }
+    }
+
 }

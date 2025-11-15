@@ -11,7 +11,7 @@ export class AuthService {
         private readonly userService : UsuarioService
     ) {}
 
-    async login(dto: LoginDto) {
+    public async login(dto: LoginDto) {
         
         const user = await this.userService.verifyLogin(dto);
         
