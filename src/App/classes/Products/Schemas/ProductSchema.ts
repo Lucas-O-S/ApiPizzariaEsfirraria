@@ -4,7 +4,7 @@ export const ProductSchema = {
         properties: {
             name: { type: 'string', example: 'Pizza de Calabresa' },
             description: { type: 'string', example: 'Deliciosa pizza com calabresa' },
-            priceTotal: { type: 'number', example: 45.5 },
+            price: { type: 'number', example: 45.5 },
             productImage: {
                 type: 'string',
                 format: 'binary',

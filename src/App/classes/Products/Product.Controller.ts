@@ -11,7 +11,7 @@ import { JwtAuthGuard } from "src/App/guards/JwtAuth.Guard";
 
 @Controller("product")
 @ApiTags("Product")
-@UseGuards(JwtAuthGuard, AdmPermissionGuard)
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class ProductController {
 
@@ -20,6 +20,8 @@ export class ProductController {
     @Post()
     @ApiConsumes('multipart/form-data')
     @ApiBody(ProductSchema)
+    @UseGuards(AdmPermissionGuard)
+    @ApiBearerAuth()
     @ApiResponse({status: 201, description: "Produto criado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     @UseInterceptors(ImageInterceptorRules("productImage"))
@@ -50,6 +52,7 @@ export class ProductController {
     @Put(":Id")
     @ApiConsumes('multipart/form-data')
     @ApiBody(ProductSchema)
+    @UseGuards(AdmPermissionGuard)
     @ApiResponse({status: 200, description: "Produto atualizado com sucesso"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     @UseInterceptors(ImageInterceptorRules("productImage"))
@@ -110,6 +113,7 @@ export class ProductController {
         @Query("getImage", new DefaultValuePipe(false), ParseBoolPipe) getImage: boolean
     ): Promise<ApiResponseInterface> {
         try {
+            console.log(getImage)
             const result = await this.service.getAll(getImage);
 
             return {
@@ -127,6 +131,7 @@ export class ProductController {
     }
 
     @Delete(":id")
+    @UseGuards(AdmPermissionGuard)
     @ApiResponse({status: 200, description: "Deleção Concluida"})
     @ApiResponse({status: 500, description: "Erro na requisição"})
     async delete(
